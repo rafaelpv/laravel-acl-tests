@@ -37,19 +37,6 @@ class UserTest extends ModelsTest
      | ------------------------------------------------------------------------------------------------
      */
     /** @test */
-    public function itCanBeInstantiated()
-    {
-        $expectations = [
-            \Illuminate\Database\Eloquent\Model::class,
-            \Kodeine\Acl\Models\Eloquent\User::class,
-        ];
-
-        foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->userModel);
-        }
-    }
-
-    /** @test */
     public function cacheTest()
     {
         $objRole = new Role();
