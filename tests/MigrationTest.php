@@ -27,16 +27,4 @@ class MigrationsTest extends TestCase
 
         $filesystem->cleanDirectory($dest);
     }
-
-    /** @test */
-    public function itCanMigrate()
-    {
-        $this->migrate();
-
-        foreach ($this->getTablesNames() as $table) {
-            $this->assertTrue(Schema::hasTable($table), "The table [$table] not found in the database.");
-        }
-
-        $this->resetMigration();
-    }
 }

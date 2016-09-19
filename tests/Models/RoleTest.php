@@ -48,26 +48,6 @@ class RoleTest extends ModelsTest
             $this->assertInstanceOf($expected, $this->roleModel);
         }
     }
-
-    /** @test */
-    public function itHasRelationships()
-    {
-        $usersRelationship       = $this->roleModel->users();
-        $permissionsRelationship = $this->roleModel->permissions();
-
-        $this->assertInstanceOf(BelongsToMany::class, $usersRelationship);
-        $this->assertInstanceOf(BelongsToMany::class, $permissionsRelationship);
-    
-        /**
-         * @var  User        $user
-         * @var  Permission  $permission
-         */
-        $user       = $usersRelationship->getRelated();
-        $permission = $permissionsRelationship->getRelated();
-    
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertInstanceOf(Permission::class, $permission);
-    }
     
     /** @test */
     public function itCanCreate()

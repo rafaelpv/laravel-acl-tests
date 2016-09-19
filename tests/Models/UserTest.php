@@ -50,64 +50,6 @@ class UserTest extends ModelsTest
     }
 
     /** @test */
-    public function itCanAttachRole()
-    {
-        $objRole = new Role();
-        $role = $objRole->create([
-            'name'        => 'Admin',
-            'slug'        => str_slug('Admin role', config('laravel-auth.slug-separator')),
-            'description' => 'Admin role descriptions.',
-        ]);
-        
-        $user = new User();
-        $user->username = 'Role test';
-        $user->email = 'role@test.com';
-        $user->password = 'RoleTest';
-        $user->save();
-        
-        $user->syncRoles(str_slug('Admin role', config('laravel-auth.slug-separator')));
-        
-        $this->assertEquals($user->getRoles(), [str_slug('Admin role', config('laravel-auth.slug-separator'))]);
-    }
-
-    /** @test */
-    public function itCanAttachRoleAndPermission()
-    {
-        $objRole = new Role();
-        $roleAttributes = [
-            'name'        => 'Admin',
-            'slug'        => str_slug('Admin role', config('laravel-auth.slug-separator')),
-            'description' => 'Admin role descriptions.',
-        ];
-        $role = $objRole->create($roleAttributes);
-        
-        $objPermission = new Permission();
-        $permissionAttributes = [
-            'name'        => 'post',
-            'slug'        => [
-                'create'     => true,
-                'view'       => true,
-                'update'     => true,
-                'delete'     => true,
-            ],
-            'description' => 'manage post permissions'
-        ];
-        $permission = $objPermission->create($permissionAttributes);
-        
-        $role->syncPermissions($permission);
-        
-        $user = new User();
-        $user->username = 'Role test';
-        $user->email = 'role@test.com';
-        $user->password = 'RoleTest';
-        $user->save();
-        $user->syncRoles($role);
-   
-        $this->assertEquals($user->getRoles(), [str_slug('Admin role', config('laravel-auth.slug-separator'))]);
-        $this->assertEquals($user->getPermissions(), ['post' => $permissionAttributes['slug']]);
-    }
-
-    /** @test */
     public function cacheTest()
     {
         $objRole = new Role();
